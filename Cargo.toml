@@ -1,0 +1,126 @@
+[package]
+name = "med_zk"
+version = "0.1.9"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+homepage = "https://github.com/OffchainLabs/stylus-hello-world"
+repository = "https://github.com/OffchainLabs/stylus-hello-world"
+keywords = ["arbitrum", "ethereum", "stylus", "alloy", "zk-snarks"]
+description = "Stylus hello world example with Groth16 zk-SNARKs"
+
+[dependencies]
+# Stylus and Ethereum-related dependencies
+alloy-primitives = "0.8.3"
+alloy-sol-types = "0.8.3"
+mini-alloc = "0.6.0"
+stylus-sdk = "0.5.0"
+hex = "0.4.3"
+dotenv = "0.15.0"
+
+getrandom = { version = "0.2", features = ["js"] }
+
+# ZK-SNARK and cryptography dependencies
+ark-ff = { version = "0.4.0", default-features = false }
+ark-ec = { version = "0.4.0", default-features = false }
+ark-serialize = { version = "0.4.0", default-features = false, features = [ "derive" ] }
+ark-poly = { version = "0.4.0", default-features = false }
+ark-std = { version = "0.4.0", default-features = false }
+ark-relations = { version = "0.4.0", default-features = false }
+ark-crypto-primitives = { version = "0.4.0", default-features = false, features = ["snark", "sponge"] }
+ark-r1cs-std = { version = "0.4.0", default-features = false, optional = true }
+
+tracing = { version = "0.1", default-features = false, features = [ "attributes" ], optional = true }
+derivative = { version = "2.0", features = ["use_core"], optional = true}
+
+rayon = { version = "1", optional = true }
+
+
+# Dev dependencies for testing and async operations
+[dev-dependencies]
+tokio = { version = "1.12.0", features = ["full"] }
+ethers = "2.0"
+eyre = "0.6.8"
+csv = { version = "1" }
+ark-bls12-381 = { version = "0.4.0", default-features = false, features = ["curve"] }
+ark-bls12-377 = { version = "0.4.0", default-features = false, features = ["curve"] }
+ark-bn254 = { version = "0.4.0", default-features = false, features = ["curve"] }
+ark-bw6-761 = { version = "0.4.0", default-features = false }
+ark-mnt4-298 = { version = "0.4.0", default-features = false, features = ["r1cs", "curve"] }
+ark-mnt6-298 = { version = "0.4.0", default-features = false, features = ["r1cs"] }
+ark-mnt4-753 = { version = "0.4.0", default-features = false, features = ["r1cs", "curve"] }
+ark-mnt6-753 = { version = "0.4.0", default-features = false, features = ["r1cs"] }
+ark-r1cs-std = { version = "0.4.0", default-features = false }
+
+
+[features]
+export-abi = ["stylus-sdk/export-abi"]
+debug = ["stylus-sdk/debug"]
+default = ["parallel"]
+std = ["ark-ff/std", "ark-ec/std", "ark-poly/std", "ark-relations/std", "ark-crypto-primitives/std", "ark-std/std" ]
+parallel = ["std", "ark-ff/parallel", "ark-poly/parallel", "ark-ec/parallel", "ark-crypto-primitives/parallel", "ark-std/parallel", "rayon"]
+r1cs = [ "ark-crypto-primitives/r1cs", "ark-r1cs-std", "tracing", "derivative" ]
+print-trace = [ "ark-std/print-trace" ]
+
+
+[[bin]]
+name = "stylus-hello-world"
+path = "src/main.rs"
+
+[[bench]]
+name = "groth16-benches"
+path = "benches/bench.rs"
+harness = false
+required-features = ["std"]
+
+
+[lib]
+crate-type = ["lib", "cdylib"]
+
+[profile.release]
+codegen-units = 1
+strip = true
+lto = true
+panic = "abort"
+opt-level = 3
+incremental = true
+
+[profile.bench]
+opt-level = 3
+debug = false
+rpath = false
+lto = "thin"
+incremental = true
+debug-assertions = false
+
+[profile.dev]
+opt-level = 0
+panic = 'abort'
+
+[profile.test]
+opt-level = 3
+lto = "thin"
+incremental = true
+debug-assertions = true
+debug = true
+
+
+[patch.crates-io]
+ark-ff = { git = "https://github.com/arkworks-rs/algebra/" }
+ark-ec = { git = "https://github.com/arkworks-rs/algebra/" }
+ark-poly = { git = "https://github.com/arkworks-rs/algebra/" }
+ark-serialize = { git = "https://github.com/arkworks-rs/algebra/" }
+ark-bls12-381 = { git = "https://github.com/arkworks-rs/algebra/" }
+ark-mnt4-298 = { git = "https://github.com/arkworks-rs/algebra/" }
+ark-mnt6-298 = { git = "https://github.com/arkworks-rs/algebra/" }
+ark-mnt4-753 = { git = "https://github.com/arkworks-rs/algebra/" }
+ark-mnt6-753 = { git = "https://github.com/arkworks-rs/algebra/" }
+ark-bls12-377 = { git = "https://github.com/arkworks-rs/algebra/" }
+ark-bw6-761 = { git = "https://github.com/arkworks-rs/algebra/" }
+ark-bn254 = { git = "https://github.com/arkworks-rs/algebra/" }
+ark-std = { git = "https://github.com/arkworks-rs/std/" }
+
+ark-r1cs-std = { git = "https://github.com/arkworks-rs/r1cs-std/" }
+ark-crypto-primitives = { git = "https://github.com/arkworks-rs/crypto-primitives/" }
+
+ark-relations = { git = "https://github.com/arkworks-rs/snark/" }
+ark-snark = { git = "https://github.com/arkworks-rs/snark/" }
