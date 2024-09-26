@@ -1,4 +1,11 @@
-![Image](./header.png)
+
+![alt text](medZK.png)
+
+Nigeria faces a critical healthcare shortage, with over 15,000 health professionals leaving the country in the past five years, leaving just 55,000 doctors to serve a population exceeding 200 million. As a result, patients endure long wait times for care, and outdated, paper-based medical records further exacerbate inefficiencies, leading to misdiagnoses and redundant testing when records are incomplete.
+
+This pressing issue inspired the development of medZK—an advanced, privacy-centric healthcare solution leveraging Zero-Knowledge Proofs (zk-SNARKs) and Google's Gemini AI to revolutionize the way medical records are verified and utilized in patient care. MedZK empowers healthcare practitioners by reducing administrative burdens and enabling secure, real-time access to verified patient data, without compromising sensitive information.
+
+
 
 # Stylus Hello World
 
