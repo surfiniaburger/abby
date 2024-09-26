@@ -1,10 +1,17 @@
-
-![alt text](medZK.png)
-
 Nigeria faces a critical healthcare shortage, with over 15,000 health professionals leaving the country in the past five years, leaving just 55,000 doctors to serve a population exceeding 200 million. As a result, patients endure long wait times for care, and outdated, paper-based medical records further exacerbate inefficiencies, leading to misdiagnoses and redundant testing when records are incomplete.
 
 This pressing issue inspired the development of medZK—an advanced, privacy-centric healthcare solution leveraging Zero-Knowledge Proofs (zk-SNARKs) and Google's Gemini AI to revolutionize the way medical records are verified and utilized in patient care. MedZK empowers healthcare practitioners by reducing administrative burdens and enabling secure, real-time access to verified patient data, without compromising sensitive information.
 
+![alt text](medZK.png)
+
+
+## From the Flowchart
+ 1. An Health Practitioner sends patient Id via the platform
+ 2. medZK server searches the database for for the patient Id
+ 3. The corresponding proof is found and sent to medZK server for proof verification
+ 4. Once the proof is verified the response is sent back to the Health practitioner dashboard
+ 5. Using the Health Practitioner hashed credentials as a key to decrypt the encryted data.
+ 6. Gemini Api (Agent) generates insights based the patient health risk, allergies, food recommendation.
 
 
 # Stylus Hello World
